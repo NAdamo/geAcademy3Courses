@@ -1,0 +1,62 @@
+<form (ngSubmit)="submit($event)" #myform="ngForm">
+  <div>
+    <label for="courseName">Name: </label>
+    <input name="courseName"
+           id="courseName"
+           [(ngModel)]="course.name"
+           #courseName="ngModel"
+           minlength="5"
+           maxlength="10"
+           required
+           type="text"
+    >
+    <div *ngIf="courseName.invalid && (courseName.touched || courseName.dirty)">
+      <span *ngIf="!!courseName.errors.required">This field is required</span>
+      <span *ngIf="!!courseName.errors.minlength">This field has a minimum length 5 character</span>
+    </div>
+  </div>
+  <div>
+    <label for="courseDescription">Description: </label>
+    <textarea name="courseDescription"
+              id="courseDescription"
+              [(ngModel)]="course.description"
+              #courseDescription="ngModel"
+              minlength="10"
+              maxlength="100"
+              required
+    ></textarea>
+    <div *ngIf="courseDescription.invalid && (courseDescription.touched || courseDescription.dirty)">
+      <span *ngIf="!!courseDescription.errors.required">This field is required</span>
+      <span *ngIf="!!courseDescription.errors.minlength">This field has a minimum length 5 character</span>
+    </div>
+  </div>
+
+  <div>
+    <label for="courseType">Type: </label>
+    <select name="courseType"
+              id="courseType"
+              [(ngModel)]="course.type"
+              #courseType="ngModel"
+    >
+      <option *ngFor="let ct of courseTypes;" [value]="ct.value">{{ct.label}}</option>
+    </select>
+    <div *ngIf="courseType.invalid && (courseType.touched || courseType.dirty)">
+      <span *ngIf="!!courseType.errors.required">This field is required</span>
+      <span *ngIf="!!courseType.errors.minlength">This field has a minimum length 5 character</span>
+    </div>
+    <div>
+      <label for="courseActive">Active: </label>
+      <input name="courseActive"
+             id="courseActive"
+             [(ngModel)]="course.isActive"
+             #courseActive="ngModel"
+             type="checkbox"
+      >
+      <div *ngIf="courseActive.invalid && (courseActive.touched || courseActive.dirty)">
+        <span *ngIf="!!courseActive.errors.required">This field is required</span>
+        <span *ngIf="!!courseActive.errors.minlength">This field has a minimum length 5 character</span>
+      </div>
+    </div>
+  </div>
+  <button type="submit" [disabled]="myform.invalid">Submit</button>
+</form>
